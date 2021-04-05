@@ -58,3 +58,49 @@ function createGrid(){
 }
 
 createGrid();
+
+
+
+let pacLocation = 500;
+squares[pacLocation].classList.add('pacman');
+
+document.addEventListener('keyup', e =>{ 
+    e.defaultPrevented;
+    squares[pacLocation].classList.remove('pacman');
+
+    if (e.keyCode === 40){   // e.kry  // dowm / Arrowdown // switch case
+        console.log('pressdown'); 
+        if(pacLocation + width < width * width && !squares[pacLocation + width].classList.contains('wall') ) pacLocation += width;
+    } else if (e.keyCode === 38){
+        console.log('press up');
+        if(pacLocation - width >= 0 && !squares[pacLocation - width].classList.contains('wall')) pacLocation -= width; 
+    } else if ( e.keyCode === 37) {
+        console.log('prress left');
+        if(pacLocation % width !== 0 && !squares[pacLocation - 1].classList.contains('wall')) pacLocation -=1;
+    } else if ( e.keyCode ===39) {
+        console.log('press right');
+        if(pacLocation % width < width -1 && !squares[pacLocation + 1].classList.contains('wall')) pacLocation += 1;
+    }
+    squares[pacLocation].classList.add('pacman');
+})
+
+
+// move screenLeft
+// 490 - 1
+
+// 490 % 28 !==0;
+
+// move right
+// 490 + 1;
+
+// 490 % 28 < 28 -1   //503%28    27      
+
+// move down
+// 490 +| 28
+
+// 490 + 28 < 28 * 28
+
+// move up
+// 490 - 28
+
+// 490 - 28 <= 0
