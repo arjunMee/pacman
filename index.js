@@ -53,7 +53,9 @@ function createGrid(){
             squares[i].classList.add('wall');
         } else if ( layout[i] ===  3){
             squares[i].classList.add('power-pellet');
-        } 
+        } else if ( layout[i] === 2){
+            squares[i].classList.add('ghost-lair');
+        }
     }
 }
 
@@ -70,17 +72,37 @@ document.addEventListener('keyup', e =>{
 
     if (e.keyCode === 40){   // e.kry  // dowm / Arrowdown // switch case
         console.log('pressdown'); 
-        if(pacLocation + width < width * width && !squares[pacLocation + width].classList.contains('wall') ) pacLocation += width;
+        if(pacLocation + width < width * width 
+            && !squares[pacLocation + width].classList.contains('wall') 
+            && !squares[pacLocation + width].classList.contains('ghost-lair')) pacLocation += width;
     } else if (e.keyCode === 38){
         console.log('press up');
-        if(pacLocation - width >= 0 && !squares[pacLocation - width].classList.contains('wall')) pacLocation -= width; 
+        if(pacLocation - width >= 0 
+            && !squares[pacLocation - width].classList.contains('wall')
+            && !squares[pacLocation + width].classList.contains('ghost-lair')) pacLocation -= width; 
     } else if ( e.keyCode === 37) {
         console.log('prress left');
-        if(pacLocation % width !== 0 && !squares[pacLocation - 1].classList.contains('wall')) pacLocation -=1;
+        if(pacLocation % width !== 0 
+            && !squares[pacLocation - 1].classList.contains('wall')
+            && !squares[pacLocation + width].classList.contains('ghost-lair')) 
+            
+            pacLocation -=1;
+
+            if (pacLocation === 364) {
+                pacLocation = 391
+            }
     } else if ( e.keyCode ===39) {
         console.log('press right');
-        if(pacLocation % width < width -1 && !squares[pacLocation + 1].classList.contains('wall')) pacLocation += 1;
-    }
+        if(pacLocation % width < width -1 
+            && !squares[pacLocation + 1].classList.contains('wall')
+            && !squares[pacLocation + width].classList.contains('ghost-lair')) 
+            
+            pacLocation += 1;
+
+            if (pacLocation === 391) {
+                pacLocation = 364
+            }
+    } 
     squares[pacLocation].classList.add('pacman');
 })
 
@@ -104,3 +126,4 @@ document.addEventListener('keyup', e =>{
 // 490 - 28
 
 // 490 - 28 <= 0
+
