@@ -36,3 +36,28 @@ body{
     border-radius: 7.5px;
     border: none;
 }
+
+.blinky{
+    background-color: chartreuse;
+    border: none;
+}
+
+
+.inky{
+    background-color: rgb(0, 255, 221);
+    border: none;
+}
+
+
+.pinky{
+    background-color: rgb(255, 0, 221);
+    border: none;
+}
+
+
+.clyde{
+    background-color: rgb(255, 0, 0);
+    border: none;
+}
+
+
