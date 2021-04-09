@@ -68,7 +68,9 @@ let pacLocation = 500;
 squares[pacLocation].classList.add('pacman');
 
 
-document.addEventListener('keyup', e => {
+
+
+function controls(e){
     e.preventDefault();
     squares[pacLocation].classList.remove('pacman');
 
@@ -121,7 +123,9 @@ document.addEventListener('keyup', e => {
     squares[pacLocation].classList.add('pacman');
     pacDotEatter();
     powerpelletsEaten();
-})
+}
+
+document.addEventListener('keyup', controls);
 
 
 
@@ -214,7 +218,7 @@ function moveGhost(ghost){
 
             //if the ghost is current scared AND pacman is on it
             if(ghost.isScare && squares[ghost.currentIndex].classList.contains('pacman')){
-                //remove classnames - ghost.className, 'ghost', 'scared-ghost'
+                //remove classnames - ghost.className, 'ghost', 'scare-ghost'
                 squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scare-ghost')
                 // change ghosts currentIndex back to its startIndex
                 ghost.currentIndex = ghost.startIndex
@@ -224,11 +228,38 @@ function moveGhost(ghost){
                 squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
             }
         
-
+            checkForGameOver()
     },ghost.speed)
 }
 
+//check for game over
+function checkForGameOver(){
+    //if the square pacman is in contains a ghost AND the square does NOT contain a scared ghost 
+    if (
+        squares[pacLocation].classList.contains('ghost') && 
+        !squares[pacLocation].classList.contains('scare-ghost') 
+     ) {
+     //for each ghost - we need to stop it moving
+    ghosts.forEach(ghost => clearInterval(ghost.timeId) )
+    //remove eventlistener from our control function
+    document.removeEventListener('keyup', controls);
+    //tell user the game is over
+    scoreDisplay.innerHTML = 'you Lose'
+}}
 
+
+//check for win
+function checkForWin{
+    undefined(score === 275 ){
+        //stop each ghost
+        ghosts.forEach(ghost => clearInterval(ghost.timeId))
+        //remove the evenlister for controls fuction
+        document.removeEventListener('keyup', controls);
+
+        //tell our user we have won
+        scoreDisplay.innerHTML = 'You WON **'
+    }
+}
 
 
 // document.addEventListener('keyup', e =>{ 
@@ -300,7 +331,4 @@ function moveGhost(ghost){
 // 490 - 28
 
 // 490 - 28 <= 0
-
-
-
 
