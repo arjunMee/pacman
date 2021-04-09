@@ -120,6 +120,7 @@ document.addEventListener('keyup', e => {
     }
     squares[pacLocation].classList.add('pacman');
     pacDotEatter();
+    powerpelletsEaten();
 })
 
 
@@ -132,11 +133,34 @@ function pacDotEatter(){
     }
 }
 
+function powerpelletsEaten(){
+    //if square pacman is in contains a power pellet
+    if(squares[pacLocation].classList.contains('power-pellet')){
+        //remove power pellet class
+        squares[pacLocation].classList.remove('power-pallet')
+        //add a score of 10
+        score +=10;
+        //change each of the four ghosts to isScared
+        ghosts.forEach(ghost => ghost.isScare = true)
+        //use setTimeout to unscare ghosts after 10 seconds  
+        setTimeout(unScareGhost, 10000);
+    }
+}
+
+
+function unScareGhost(){
+    ghosts.forEach(ghost => ghost.isScare = false)
+}
+ 
 class Ghost {
     constructor(className, startIndex, speed){
         this.className = className;
         this.startIndex = startIndex;
         this.speed = speed;
+
+        this.currentIndex = startIndex;
+        this.isScare = false;
+        this.timeId = NaN;
     }
 }
 
@@ -147,19 +171,60 @@ const ghosts = [
     new Ghost('clyde', 379, 500)
 ];
 
-//draw
-ghosts.forEach(ghost => squares[ghost.startIndex].classList.add(ghost.className))
+//draw my ghosts onto my grid
+ghosts.forEach(ghost => {
+    squares[ghost.currentIndex].classList.add(ghost.className)
+    squares[ghost.currentIndex].classList.add('ghost')
+})
 
 
 
 
-//move
-ghost.forEach(ghost => moveGhost(ghost));
+//move the ghosts
+ghosts.forEach(ghost => moveGhost(ghost));
 
 function moveGhost(ghost){
     const directions = [-1, +1, -width, +width];
-    let direction = direction[Math.floor(Math.random() * direction.length)]
-}v
+    let direction = directions[Math.floor(Math.random() * directions.length)]
+
+    ghost.timeId = setInterval(function() {
+        //all our code
+        //if the next square does NOT contain a wall and does not contain a ghost
+        if(!squares[ghost.currentIndex + direction].classList.contains('wall') &&
+            !squares[ghost.currentIndex + direction].classList.contains('ghost'))
+            {
+                //remove any ghost
+                squares[ghost.currentIndex].classList.remove(ghost.className)
+                squares[ghost.currentIndex].classList.remove('ghost','sacre-ghost')
+                // //add direction to current Index
+                ghost.currentIndex += direction;
+                // //add ghost class
+                squares[ghost.currentIndex].classList.add(ghost.className)
+                squares[ghost.currentIndex].classList.add('ghost')
+            } else {
+                direction = directions[Math.floor(Math.random() * directions.length)]
+            }
+
+
+            //if the ghost is currently scared
+            if(ghost.isScare){
+                squares[ghost.currentIndex].classList.add('sacre-ghost')
+            }
+
+
+            //if the ghost is current scared AND pacman is on it
+            if(ghost.isScare && ghost[pacLocation].classList.contains('sacre-ghost'))
+        
+            //remove classnames - ghost.className, 'ghost', 'scared-ghost'
+            
+            // change ghosts currentIndex back to its startIndex
+            
+            //add a score of 100
+            
+            //re-add classnames of ghost.className and 'ghost' to the ghosts new postion
+
+    },ghost.speed)
+}
 
 
 
