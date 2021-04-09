@@ -195,7 +195,7 @@ function moveGhost(ghost){
             {
                 //remove any ghost
                 squares[ghost.currentIndex].classList.remove(ghost.className)
-                squares[ghost.currentIndex].classList.remove('ghost','sacre-ghost')
+                squares[ghost.currentIndex].classList.remove('ghost','scare-ghost')
                 // //add direction to current Index
                 ghost.currentIndex += direction;
                 // //add ghost class
@@ -208,20 +208,22 @@ function moveGhost(ghost){
 
             //if the ghost is currently scared
             if(ghost.isScare){
-                squares[ghost.currentIndex].classList.add('sacre-ghost')
+                squares[ghost.currentIndex].classList.add('scare-ghost')
             }
 
 
             //if the ghost is current scared AND pacman is on it
-            if(ghost.isScare && ghost[pacLocation].classList.contains('sacre-ghost'))
+            if(ghost.isScare && squares[ghost.currentIndex].classList.contains('pacman')){
+                //remove classnames - ghost.className, 'ghost', 'scared-ghost'
+                squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scare-ghost')
+                // change ghosts currentIndex back to its startIndex
+                ghost.currentIndex = ghost.startIndex
+                //add a score of 100
+                score +=100
+                //re-add classnames of ghost.className and 'ghost' to the ghosts new postion
+                squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+            }
         
-            //remove classnames - ghost.className, 'ghost', 'scared-ghost'
-            
-            // change ghosts currentIndex back to its startIndex
-            
-            //add a score of 100
-            
-            //re-add classnames of ghost.className and 'ghost' to the ghosts new postion
 
     },ghost.speed)
 }
