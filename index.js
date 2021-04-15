@@ -123,6 +123,8 @@ function controls(e){
     squares[pacLocation].classList.add('pacman');
     pacDotEatter();
     powerpelletsEaten();
+    checkForWin();
+    checkForGameOver()
 }
 
 document.addEventListener('keyup', controls);
@@ -228,7 +230,7 @@ function moveGhost(ghost){
                 squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
             }
         
-            checkForGameOver()
+            
     },ghost.speed)
 }
 
@@ -249,8 +251,8 @@ function checkForGameOver(){
 
 
 //check for win
-function checkForWin{
-    undefined(score === 275 ){
+function checkForWin(){
+    if(score === 275 ){
         //stop each ghost
         ghosts.forEach(ghost => clearInterval(ghost.timeId))
         //remove the evenlister for controls fuction
