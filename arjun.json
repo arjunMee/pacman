@@ -1,0 +1,27 @@
+[
+    {
+        "name": "arjun",
+        "city": "kota",
+        "age": 32
+    },
+    {
+        "name": "rakedh",
+        "city": "kota",
+        "age": 44
+    },
+    {
+        "name": "lalu",
+        "city": "jaipur",
+        "age": 33
+    },
+    {
+        "name": "karan",
+        "city": "ramnagar",
+        "age": 34
+    },
+    {
+        "name": "meena",
+        "city": "udaipur",
+        "age": 33
+    }
+]
